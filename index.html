@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container" id="elzero-app">
+      <h4>Write Your message {{maxLength}} (Characters Allow)</h4>
+      <textarea
+        @input="countchars"
+        v-model="message"
+        :maxlength="maxLength"
+      ></textarea>
+      <span class="counter" :class="{'zero':reachZero}">
+        Left | <span>{{remainaingChars}}</span>
+      </span>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script>
+      var app = new Vue({
+        el: "#elzero-app",
+        data: {
+          maxLength: 10,
+          remainaingChars: 10,
+          message: null,
+          reachZero: false,
+        },
+        methods: {
+          countchars() {
+            this.remainaingChars = this.maxLength - this.message.length;
+            this.reachZero = this.remainaingChars === 0;
+            console.log(this.reachZero);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
+<style>
+  .container {
+    width: 400px;
+    height: 200px;
+    resize: none;
+    background-color: #eee;
+    border: 1px solid #ccc;
+  }
+  .container .counter {
+    display: block;
+    text-align: right;
+    padding-left: 10px;
+  }
+  .container .counter.zero span {
+    color: red;
+  }
+</style>
